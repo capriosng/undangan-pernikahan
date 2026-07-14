@@ -22,7 +22,6 @@
 
     <!-- 1. TOMBOL MUSIK LATAR (Floating) -->
     <audio id="bg-music" loop>
-        <!-- Anda bisa mengganti URL musik mp3 di bawah ini dengan lagu pilihan Anda -->
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
     <button id="music-btn" class="fixed bottom-5 right-5 z-50 bg-white p-3 rounded-full shadow-lg text-gold border border-gold hover:scale-110 transition duration-300">
@@ -30,13 +29,20 @@
     </button>
 
     <!-- 2. HERO SECTION -->
-    <header class="relative min-h-screen flex flex-col items-center justify-center text-center bg-cover bg-center px-4" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200');">
-        <p class="text-white tracking-widest text-sm uppercase mb-4">The Wedding of</p>
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center bg-cover bg-center px-4" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200');">
+        <p class="text-white tracking-widest text-sm uppercase mb-2">The Wedding of</p>
         <h1 class="font-wedding text-white text-6xl md:text-8xl mb-4 text-gold">Pilekman & Horbolina</h1>
-        <p class="text-stone-200 italic max-w-md text-sm md:text-base px-4">"Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan menyempurnakan."</p>
+        <p class="text-stone-200 italic max-w-md text-sm md:text-base px-4 mb-8">"Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan menyempurnakan."</p>
         
+        <!-- BOX NAMA TAMU DINAMIS -->
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-xl text-white max-w-sm mx-auto mb-8 shadow-lg">
+            <p class="text-xs uppercase tracking-widest text-stone-300 mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <h2 id="guest-name" class="text-xl font-bold text-gold tracking-wide">Tamu Undangan</h2>
+            <p class="text-[10px] text-stone-300 mt-2 italic">*Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
+        </div>
+
         <!-- COUNTDOWN TIMER -->
-        <div class="mt-12 grid grid-cols-4 gap-2 md:gap-4 max-w-xl mx-auto">
+        <div class="grid grid-cols-4 gap-2 md:gap-4 max-w-xl mx-auto">
             <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg text-white w-20 md:w-24">
                 <span id="days" class="block text-2xl md:text-3xl font-bold">00</span>
                 <span class="text-xs uppercase tracking-wider">Hari</span>
@@ -70,7 +76,6 @@
             <h3 class="text-xl font-bold mb-2">Lokasi Acara</h3>
             <p class="text-stone-600 mb-6">Hinalang, Kecamatan Purba<br>Kabupaten Simalungun, Sumatera Utara</p>
             
-            <!-- Link Google Maps Presisi untuk Hinalang, Purba, Simalungun -->
             <a href="https://www.google.com/maps/search/?api=1&query=Hinalang,+Kecamatan+Purba,+Kabupaten+Simalungun" target="_blank" class="inline-block bg-gold text-white px-6 py-2.5 rounded-full shadow hover:bg-yellow-600 transition tracking-wider text-sm font-semibold">
                 <i class="fa-solid fa-map-location-dot mr-2"></i> BUKA GOOGLE MAPS
             </a>
@@ -81,8 +86,6 @@
     <section class="py-20 bg-stone-100 px-4">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="font-wedding text-5xl text-gold mb-12">Galeri Foto</h2>
-            
-            <!-- Grid Foto -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="overflow-hidden rounded-xl shadow-md h-64 bg-cover bg-center hover:scale-105 transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600');"></div>
                 <div class="overflow-hidden rounded-xl shadow-md h-64 bg-cover bg-center hover:scale-105 transition duration-300" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600');"></div>
@@ -101,8 +104,9 @@
             
             <form id="rsvp-form" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-stone-700 mb-1">Nama Lengkap</label>
-                    <input type="text" id="rsvp-name" required class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none">
+                    <!-- Kolom ini akan otomatis terisi berdasarkan nama di URL -->
+                    <label class="block text-sm font-semibold text-stone-700 mb-1">Nama Tamu (Tujuan Undangan)</label>
+                    <input type="text" id="rsvp-target" required class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none bg-stone-50">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-stone-700 mb-1">Konfirmasi Kehadiran</label>
@@ -138,7 +142,22 @@
 
     <!-- LOGIC JAVASCRIPT -->
     <script>
-        // --- 1. COUNTDOWN TIMER LOGIC ---
+        // --- 1. AMBIL NAMA TAMU DARI URL PARAMETER (?to=Nama) ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        
+        if (guestName) {
+            // Tampilkan nama di bagian Hero
+            document.getElementById("guest-name").innerText = guestName;
+            // Masukkan nama otomatis ke dalam input Form RSVP agar tamu tidak repot mengetik ulang
+            document.getElementById("rsvp-target").value = guestName;
+        } else {
+            // Default jika link dibuka tanpa parameter nama
+            document.getElementById("guest-name").innerText = "Tamu Undangan";
+            document.getElementById("rsvp-target").value = "";
+        }
+
+        // --- 2. COUNTDOWN TIMER LOGIC ---
         const targetDate = new Date("December 31, 2030 10:00:00").getTime();
 
         const countdownInterval = setInterval(function() {
@@ -164,7 +183,7 @@
             }
         }, 1000);
 
-        // --- 2. MUSIC PLAYER LOGIC ---
+        // --- 3. MUSIC PLAYER LOGIC ---
         const music = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-btn");
         const musicIcon = document.getElementById("music-icon");
@@ -183,24 +202,23 @@
             isPlaying = !isPlaying;
         });
 
-        // --- 3. RSVP FORM TO WHATSAPP LOGIC ---
+        // --- 4. RSVP FORM TO WHATSAPP LOGIC ---
         const rsvpForm = document.getElementById("rsvp-form");
         rsvpForm.addEventListener("submit", function(e) {
             e.preventDefault();
             
-            const name = document.getElementById("rsvp-name").value;
+            const target = document.getElementById("rsvp-target").value;
             const status = document.getElementById("rsvp-status").value === "hadir" ? "Ya, Saya Akan Hadir" : "Maaf, Tidak Bisa Hadir";
             const guests = document.getElementById("rsvp-guests").value;
             const message = document.getElementById("rsvp-message").value;
             
-            // Format Pesan WhatsApp
             const text = `Halo Pilekman %26 Horbolina, berikut konfirmasi kehadiran saya:\n\n` +
-                         `*Nama:* ${name}\n` +
+                         `*Nama Tamu:* ${target}\n` +
                          `*Kehadiran:* ${status}\n` +
                          `*Jumlah Tamu:* ${guests} Orang\n` +
                          `*Ucapan:* ${message}`;
                          
-            // Nomor WhatsApp Tujuan (Ganti dengan nomor WA Anda, awali kode negara 62)
+            // Silakan ganti dengan nomor WA Anda (awali dengan 62)
             const whatsappNumber = "6281234567890"; 
             
             window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(text)}`, "_blank");
