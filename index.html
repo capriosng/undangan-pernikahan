@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pernikahan Pilekman & Horbolina</title>
+    <!-- Tailwind CSS untuk Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-wedding { font-family: 'Great Vibes', cursive; }
+        .bg-gold { background-color: #d4af37; }
+        .text-gold { color: #d4af37; }
+        .border-gold { border-color: #d4af37; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
+
+    <!-- Tombol Musik / Audio Element -->
+    <audio id="bg-music" loop>
+        <!-- Ganti URL ini dengan link mp3 musik latar pilihan Anda -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" class="fixed bottom-5 right-5 z-50 bg-white p-3 rounded-full shadow-lg text-gold border border-gold hover:scale-110 transition">
+        <i id="music-icon" class="fa-solid fa-circle-play text-2xl"></i>
+    </button>
+
+    <!-- 1. HERO SECTION -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center bg-cover bg-center px-4" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200');">
+        <p class="text-white tracking-widest text-sm uppercase mb-4">The Wedding of</p>
+        <h1 class="font-wedding text-white text-6xl md:text-8xl mb-4 text-gold">Pilekman & Horbolina</h1>
+        <p class="text-stone-200 italic max-w-md text-sm md:text-base px-4">"Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan menyempurnakan."</p>
+        
+        <!-- COUNTDOWN TIMER -->
+        <div class="mt-12 grid grid-cols-4 gap-2 md:gap-4 max-w-xl mx-auto">
+            <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg text-white w-20 md:w-24">
+                <span id="days" class="block text-2xl md:text-3xl font-bold">00</span>
+                <span class="text-xs uppercase tracking-wider">Hari</span>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg text-white w-20 md:w-24">
+                <span id="hours" class="block text-2xl md:text-3xl font-bold">00</span>
+                <span class="text-xs uppercase tracking-wider">Jam</span>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg text-white w-20 md:w-24">
+                <span id="minutes" class="block text-2xl md:text-3xl font-bold">00</span>
+                <span class="text-xs uppercase tracking-wider">Menit</span>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm p-3 rounded-lg text-white w-20 md:w-24">
+                <span id="seconds" class="block text-2xl md:text-3xl font-bold">00</span>
+                <span class="text-xs uppercase tracking-wider">Detik</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. WAKTU & LOKASI SECTION -->
+    <section class="py-20 px-4 max-w-4xl mx-auto text-center">
+        <h2 class="font-wedding text-5xl text-gold mb-8">Waktu & Tempat Acara</h2>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 max-w-md mx-auto">
+            <i class="fa-solid fa-calendar-days text-gold text-3xl mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Pemberkatan & Resepsi</h3>
+            <p class="text-stone-600 font-semibold">Selasa, 31 Desember 2030</p>
+            <p class="text-stone-500 text-sm mb-4">Pukul 10:00 - 12:00 WIB</p>
+            <hr class="my-4 border-stone-200">
+            <i class="fa-solid fa-location-dot text-gold text-3xl mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Lokasi Acara</h3>
+            <p class="text-stone-600 mb-6">Hinalang, Kabupaten Simalungun<br>Sumatera Utara</p>
+            
+            <!-- Link Google Maps (Ganti href dengan koordinat asli Anda) -->
+            <a href="https://maps.google.com" target="_blank" class="inline-block bg-gold text-white px-6 py-2.5 rounded-full shadow hover:bg-yellow-600 transition tracking-wider text-sm font-semibold">
+                <i class="fa-solid fa-map-location-dot mr-2"></i> BUKA GOOGLE MAPS
+            </a>
+        </div>
+    </section>
+
+    <!-- 3. GALERI FOTO SECTION -->
+    <section class="py-20 bg-stone-100 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-wedding text-5xl text-gold mb-12">Galeri Foto</h2>
+            
+            <!-- Grid Foto (Ganti URL gambar src sesuai kebutuhan) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="overflow-hidden rounded-xl shadow-md h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600');"></div>
+                <div class="overflow-hidden rounded-xl shadow-md h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600');"></div>
+                <div class="overflow-hidden rounded-xl shadow-md h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. RSVP / KONFIRMASI KEHADIRAN SECTION -->
+    <section class="py-20 px-4 max-w-xl mx-auto">
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-stone-100">
+            <div class="text-center mb-8">
+                <h2 class="font-wedding text-5xl text-gold mb-2">Konfirmasi Kehadiran</h2>
+                <p class="text-stone-500 text-sm">Mohon konfirmasikan kehadiran Anda di bawah ini</p>
+            </div>
+            
+            <form id="rsvp-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-stone-700 mb-1">Nama Lengkap</label>
+                    <input type="text" required class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-stone-700 mb-1">Konfirmasi Kehadiran</label>
+                    <select required class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none">
+                        <option value="">-- Pilih Status --</option>
+                        <option value="hadir">Ya, Saya Akan Hadir</option>
+                        <option value="tidak-hadir">Maaf, Tidak Bisa Hadir</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-stone-700 mb-1">Jumlah Tamu</label>
+                    <select class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none">
+                        <option value="1">1 Orang</option>
+                        <option value="2">2 Orang</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-stone-700 mb-1">Ucapan & Doa Restu</label>
+                    <textarea rows="3" placeholder="Tulis ucapan manis Anda..." class="w-full border border-stone-300 rounded-lg p-2.5 focus:ring-1 focus:ring-gold focus:border-gold outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gold text-white font-semibold py-3 rounded-lg shadow hover:bg-yellow-600 transition tracking-wider">
+                    KIRIM KONFIRMASI
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-900 text-stone-400 py-8 text-center text-xs tracking-widest">
+        <p class="font-wedding text-2xl text-gold mb-2">Pilekman & Horbolina</p>
+        <p>&copy; 2030 - Created with Love.</p>
+    </footer>
+
+    <!-- LOGIC JAVASCRIPT -->
+    <script>
+        // 1. COUNTDOWN TIMER LOGIC
+        const targetDate = new Date("December 31, 2030 10:00:00").getTime();
+
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 *Normally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
